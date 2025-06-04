@@ -8,7 +8,7 @@ import { isRateLimited, resetRateLimit } from '@/lib/rateLimiter';
 export async function POST(req: NextRequest) {
     try {
         // Get IP address from request
-        const forwardedFor = req.headers.get('x-forwarded-for');
+        // const forwardedFor = req.headers.get('x-forwarded-for');
         const res1 = await fetch('https://api.ipify.org?format=json');
 const data = await res1.json();
 console.log('Your Public IP:', data.ip);
