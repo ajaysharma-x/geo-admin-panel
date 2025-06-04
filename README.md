@@ -95,16 +95,29 @@ Login history (with IP, city, country) is recorded
 
 ---
 
+## Bonus Points (Optional but Impressive) 
+ 
+● Rate limiting login attempts  ->  ✅ Done
+
+● Refresh token implementation  ->  ✅ Done
+
+● Pagination for user list      ->  Still in progress...
+
+● Dark/Light theme switcher     ->  ✅ Done
+
+---
+
 ## ✅ Submission Checklist
- Auth working correctly
 
- Role-based access control
+● Auth working correctly
 
- IP geolocation logging
+● Role-based access control
 
- UI polished with TailwindCSS
+● IP geolocation logging
 
- Readme with setup & test instructions
+● UI polished with TailwindCSS
+
+● Readme with setup & test instructions
 
  ---
 
