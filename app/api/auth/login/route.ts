@@ -9,11 +9,10 @@ export async function POST(req: NextRequest) {
     try {
         // Get IP address from request
         const forwardedFor = req.headers.get('x-forwarded-for');
-        const ip =
-            req.headers.get('x-vercel-forwarded-for') ||
-            req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-            req.headers.get('x-real-ip') ||
-            'Unknown';
+        const res1 = await fetch('https://api.ipify.org?format=json');
+const data = await res1.json();
+console.log('Your Public IP:', data.ip);
+        const ip = data.ip;
 
         if (isRateLimited(ip)) {
             return NextResponse.json({ error: 'Too many login attempts. Try again later.' }, { status: 429 });
@@ -38,6 +37,7 @@ export async function POST(req: NextRequest) {
         try {
             const geoRes = await fetch(`https://ipapi.co/${ip}/json/`);
             const geoData = await geoRes.json();
+            console.log(geoData);
             city = geoData.city || 'Unknown';
             country = geoData.country_name || 'Unknown';
         } catch (geoErr) {
