@@ -58,6 +58,15 @@ export default function RegisterPage() {
           >
             Register
           </button>
+
+          <div className="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+      <h1
+        onClick={() => router.push('/login')}
+        className="text-1xl text-center font-bold cursor-pointer hover:underline"
+      >
+        Already have an account?  Login here
+      </h1>
+    </div>
         </div>
       </div>
     </div>

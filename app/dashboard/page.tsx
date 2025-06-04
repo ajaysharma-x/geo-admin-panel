@@ -34,7 +34,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const res = await fetch('/api/user/profile', { credentials: 'include' });
-      if (!res.ok) return router.push('/login');
+      if (!res.ok) return router.push('/register');
 
       const data = await res.json();
       setUserData(data);
