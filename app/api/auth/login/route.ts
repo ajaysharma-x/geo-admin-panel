@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
                 console.log(geoData);
 
                 city = geoData.city || 'Unknown';
-                country = geoData.country_name || 'Unknown';
+                country = geoData.country || 'Unknown';
             }
         } catch (geoErr) {
             console.error('Geolocation fetch error:', geoErr);
