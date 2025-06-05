@@ -8,11 +8,12 @@ import { isRateLimited, resetRateLimit } from '@/lib/rateLimiter';
 export async function POST(req: NextRequest) {
     try {
         // Get IP address from request
-        // const forwardedFor = req.headers.get('x-forwarded-for');
-        const res1 = await fetch('https://api.ipify.org?format=json');
-const data = await res1.json();
-console.log('Your Public IP:', data.ip);
-        const ip = data.ip;
+        //         // const forwardedFor = req.headers.get('x-forwarded-for');
+        //         const res1 = await fetch('https://api.ipify.org?format=json');
+        // const data = await res1.json();
+        // console.log('Your Public IP:', data.ip);
+        const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'Unknown';
+        console.log(ip);
 
         if (isRateLimited(ip)) {
             return NextResponse.json({ error: 'Too many login attempts. Try again later.' }, { status: 429 });
@@ -35,11 +36,18 @@ console.log('Your Public IP:', data.ip);
         // Fetch location from ipapi.co
         let city = 'Unknown', country = 'Unknown';
         try {
-            const geoRes = await fetch(`https://ipapi.co/${ip}/json/`);
-            const geoData = await geoRes.json();
-            console.log(geoData);
-            city = geoData.city || 'Unknown';
-            country = geoData.country_name || 'Unknown';
+            if (ip === '::1' || ip === '127.0.0.1') {
+                city = 'Localhost';
+                country = 'N/A';
+            } else {
+                // run geolocation fetch
+                const geoRes = await fetch(`https://ipwho.is/${ip}`);
+                const geoData = await geoRes.json();
+                console.log(geoData);
+
+                city = geoData.city || 'Unknown';
+                country = geoData.country_name || 'Unknown';
+            }
         } catch (geoErr) {
             console.error('Geolocation fetch error:', geoErr);
         }

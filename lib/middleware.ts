@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { verifyToken } from './auth';
+import { verifyAccessToken } from './auth';
 
 export async function getUserFromToken() {
   const cookieStore = await cookies();  // await here
@@ -7,7 +7,7 @@ export async function getUserFromToken() {
   if (!token) return null;
 
   try {
-    return verifyToken(token) as { userId: string; role: string };
+    return verifyAccessToken(token) as { userId: string; role: string };
   } catch {
     return null;
   }
